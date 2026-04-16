@@ -20,13 +20,21 @@ export default async function AdminLayout({
   }
 
   const userRole = (session.user as { role?: string }).role;
-  if (userRole !== 'ADMIN' && userRole !== 'SUPER_ADMIN') {
+
+  // Allow ADMIN, SUPER_ADMIN, and EDITOR
+  const allowedRoles = ['ADMIN', 'SUPER_ADMIN', 'EDITOR'];
+  if (!userRole || !allowedRoles.includes(userRole)) {
     redirect('/admin/login');
   }
 
+  const userWithRole = {
+    ...session.user,
+    role: userRole,
+  };
+
   return (
-    <div className="flex h-screen bg-gray-100">
-      <AdminSidebar user={session.user} />
+    <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
+      <AdminSidebar user={userWithRole} />
       <main className="flex-1 overflow-auto">
         <div className="p-8">{children}</div>
       </main>

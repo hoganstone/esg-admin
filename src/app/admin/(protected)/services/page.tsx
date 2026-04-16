@@ -8,8 +8,8 @@ export default async function ServicesPage() {
     <div>
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">服務項目</h1>
-          <p className="text-gray-500 mt-1">管理網站顯示的服務內容</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">服務項目</h1>
+          <p className="text-gray-500 dark:text-gray-400 mt-1">管理網站顯示的服務內容</p>
         </div>
         <button className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-xl text-sm font-medium transition-colors">
           <Plus className="w-4 h-4" />
@@ -19,15 +19,15 @@ export default async function ServicesPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {services.map((service) => (
-          <div key={service.id} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+          <div key={service.id} className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
             <div className="flex items-start justify-between mb-3">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
-                  <Briefcase className="w-5 h-5 text-green-600" />
+                <div className="w-10 h-10 bg-green-100 dark:bg-green-900/40 rounded-xl flex items-center justify-center">
+                  <Briefcase className="w-5 h-5 text-green-600 dark:text-green-400" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900">{service.title}</h3>
-                  <p className="text-xs text-gray-400">{service.subtitle}</p>
+                  <h3 className="font-semibold text-gray-900 dark:text-white">{service.title}</h3>
+                  <p className="text-xs text-gray-400 dark:text-gray-500">{service.subtitle}</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -38,14 +38,14 @@ export default async function ServicesPage() {
                 </span>
               </div>
             </div>
-            <p className="text-sm text-gray-600 leading-relaxed mb-4">{service.description}</p>
-            <div className="flex items-center gap-2 pt-3 border-t border-gray-100">
-              <button className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+            <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">{service.description}</p>
+            <div className="flex items-center gap-2 pt-3 border-t border-gray-100 dark:border-gray-700">
+              <button className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors">
                 {service.active ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
                 {service.active ? '隱藏' : '顯示'}
               </button>
-              <span className="text-gray-200">|</span>
-              <button className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+              <span className="text-gray-200 dark:text-gray-600">|</span>
+              <button className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors">
                 編輯
               </button>
             </div>
@@ -53,7 +53,7 @@ export default async function ServicesPage() {
         ))}
 
         {services.length === 0 && (
-          <div className="col-span-2 py-20 text-center text-gray-400">
+          <div className="col-span-2 py-20 text-center text-gray-400 dark:text-gray-500">
             <Briefcase className="w-12 h-12 mx-auto mb-3 opacity-30" />
             <p>尚無服務項目，點擊右上角新增</p>
           </div>

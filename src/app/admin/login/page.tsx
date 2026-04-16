@@ -26,14 +26,27 @@ export default function LoginPage() {
 
     if (result?.error) {
       setError('帳號或密碼錯誤，請重新輸入');
-    } else {
-      router.push('/admin/dashboard');
+      setLoading(false);
+      return;
     }
+
+    // Record login session (IP tracked server-side from headers)
+    try {
+      const res = await fetch('/api/admin/session', { method: 'POST' });
+      if (res.ok) {
+        const { id } = await res.json();
+        if (id) localStorage.setItem('esg-admin-session-id', id);
+      }
+    } catch {
+      // Non-blocking: proceed even if session record fails
+    }
+
+    router.push('/admin/dashboard');
     setLoading(false);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-900 via-green-800 to-green-700 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-green-900 via-green-800 to-green-700 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
@@ -41,16 +54,16 @@ export default function LoginPage() {
             <Leaf className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-3xl font-bold text-white">ESG永續</h1>
-          <p className="text-green-200 mt-1">管理系統後台</p>
+          <p className="text-green-200 dark:text-gray-400 mt-1">管理系統後台</p>
         </div>
 
         {/* Form Card */}
-        <div className="bg-white rounded-2xl shadow-2xl p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">管理員登入</h2>
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">管理員登入</h2>
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
                 電子郵件
               </label>
               <input
@@ -58,13 +71,13 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
                 placeholder="admin@example.com"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
                 密碼
               </label>
               <div className="relative">
@@ -73,13 +86,13 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all pr-12"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all pr-12"
                   placeholder="••••••••"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPwd(!showPwd)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
                 >
                   {showPwd ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
@@ -87,7 +100,7 @@ export default function LoginPage() {
             </div>
 
             {error && (
-              <div className="px-4 py-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm">
+              <div className="px-4 py-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl text-red-600 dark:text-red-400 text-sm">
                 {error}
               </div>
             )}
@@ -102,7 +115,7 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <p className="text-center text-sm text-gray-500 mt-6">
+          <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-6">
             © 2024 ESG永續發展管理系統
           </p>
         </div>

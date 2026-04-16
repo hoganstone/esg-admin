@@ -14,12 +14,26 @@ model User {
   image         String?
   password      String?
   role          Role      @default(USER)
+  lastLoginAt   DateTime?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
   accounts      Account[]
   sessions      Session[]
   orders        Order[]
+  loginRecords  LoginRecord[]
+}
+
+model LoginRecord {
+  id          String    @id @default(cuid())
+  userId      String
+  loginAt     DateTime  @default(now())
+  logoutAt    DateTime?
+  onlineSec   Int?
+  ipAddress   String?
+  userAgent   String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Account {
@@ -105,6 +119,8 @@ model Inquiry {
   company   String?
   subject   String
   message   String        @db.Text
+  reply     String?       @db.Text
+  repliedAt DateTime?
   status    InquiryStatus @default(PENDING)
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
@@ -143,6 +159,7 @@ model SiteConfig {
 
 enum Role {
   USER
+  EDITOR
   ADMIN
   SUPER_ADMIN
 }
