@@ -7,7 +7,7 @@ import { useTheme } from 'next-themes';
 import {
   Leaf, LayoutDashboard, MessageSquare, Briefcase, FolderOpen,
   ShoppingCart, Users, Settings, LogOut, ChevronRight, Sun, Moon,
-  Star,
+  Star, BarChart2, Newspaper, FileText,
 } from 'lucide-react';
 import { useLanguage } from '@/components/LanguageProvider';
 import type { Locale } from '@/i18n/translations';
@@ -50,6 +50,9 @@ export default function AdminSidebar({ user }: { user: User }) {
     { label: t.sidebar.services,  href: '/admin/services',  icon: Briefcase,      show: true },
     { label: t.sidebar.projects,  href: '/admin/projects',  icon: FolderOpen,     show: true },
     { label: '客戶評論',           href: '/admin/testimonials', icon: Star,        show: true },
+    { label: 'ESG 數據',          href: '/admin/esg-data',  icon: BarChart2,      show: true },
+    { label: '新聞管理',           href: '/admin/news',      icon: Newspaper,      show: true },
+    { label: '報告管理',           href: '/admin/reports',   icon: FileText,       show: true },
     { label: t.sidebar.orders,    href: '/admin/orders',    icon: ShoppingCart,   show: isAdmin },
     { label: t.sidebar.users,     href: '/admin/users',     icon: Users,          show: isAdmin },
     { label: t.sidebar.settings,  href: '/admin/settings',  icon: Settings,       show: isAdmin },
