@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 import { auth } from '@/lib/auth';
-import { Settings, Database, Shield, Globe } from 'lucide-react';
+import { Settings, Database, Globe } from 'lucide-react';
 
 export default async function SettingsPage() {
   const session = await auth();
@@ -63,29 +63,6 @@ export default async function SettingsPage() {
                 <span className="text-sm font-medium text-gray-900 dark:text-white">{item.value}</span>
               </div>
             ))}
-          </div>
-        </div>
-
-        {/* Security */}
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6">
-          <div className="flex items-center gap-3 mb-5">
-            <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900/40 rounded-xl flex items-center justify-center">
-              <Shield className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-            </div>
-            <h2 className="font-semibold text-gray-900 dark:text-white">安全設定</h2>
-          </div>
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">新密碼</label>
-              <input type="password" placeholder="輸入新密碼" className="w-full px-3 py-2 border border-gray-200 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">確認新密碼</label>
-              <input type="password" placeholder="再次輸入新密碼" className="w-full px-3 py-2 border border-gray-200 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500" />
-            </div>
-            <button className="w-full py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-sm font-medium transition-colors">
-              更新密碼
-            </button>
           </div>
         </div>
 
